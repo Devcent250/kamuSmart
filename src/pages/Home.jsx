@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Check, Clock, Headphones, Star, Sparkles, Mail } from "lucide-react"
 import ProductList from "../components/ProductList"
 
-const Home = () => {
+const Home = ({ setSelectedProduct }) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-emerald-50">
       {/* Hero Section */}
@@ -100,7 +100,7 @@ const Home = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-          <ProductList limit={8} />
+          <ProductList limit={8} setSelectedProduct={setSelectedProduct} />
         </div>
 
         <div className="text-center">

@@ -1,6 +1,7 @@
 "use client"
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from "react-router-dom"
 import { useState } from "react"
+import ProductDetail from "./components/ProductDetail"
 import Logo from "./assets/LOGO.png"
 import Home from "./pages/Home"
 import Products from "./pages/Products"
@@ -213,12 +214,16 @@ function App() {
         {/* Main Content */}
         <main className="pt-20">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home setSelectedProduct={setSelectedProduct} />} />
             <Route path="/products" element={<Products />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </main>
+
+        {selectedProduct && (
+          <ProductDetail product={selectedProduct} onClose={() => setSelectedProduct(null)} />
+        )}
 
         {/* Footer */}
         <footer className="bg-white border-t border-gray-200">
@@ -227,7 +232,7 @@ function App() {
               {/* Company Info */}
               <div className="space-y-4">
                 <div className="flex items-center space-x-3">
-                <div className="flex items-center justify-center">
+                  <div className="flex items-center justify-center">
                     <img src={Logo || "/placeholder.svg"} alt="Kamu Smart Logo" className="h-36 w-42" />
                   </div>
                   <div>
