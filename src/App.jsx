@@ -1,92 +1,88 @@
 "use client"
-
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from "react-router-dom"
 import { useState } from "react"
-import ProductList from "./components/ProductList"
-import ProductDetail from "./components/ProductDetail"
-import Logo from './assets/LOGO.png'
-import Home from './pages/Home';
-import Products from './pages/Products';
-import About from './pages/About';
-import Contact from './pages/Contact';
+import Logo from "./assets/LOGO.png"
+import Home from "./pages/Home"
+import Products from "./pages/Products"
+import About from "./pages/About"
+import Contact from "./pages/Contact"
 
 // Navigation component to handle active states
 const Navigation = () => {
-  const location = useLocation();
+  const location = useLocation()
 
   const isActive = (path) => {
-    return location.pathname === path;
-  };
+    return location.pathname === path
+  }
 
   return (
     <nav className="hidden md:flex items-center space-x-8">
       <Link
         to="/"
-        className={`text-gray-600 hover:text-emerald-600 font-medium transition-colors duration-200 ${isActive('/') ? 'text-emerald-600' : ''
+        className={`text-gray-600 hover:text-emerald-600 font-medium transition-colors duration-200 ${isActive("/") ? "text-emerald-600" : ""
           }`}
       >
         Home
       </Link>
       <Link
         to="/products"
-        className={`text-gray-600 hover:text-emerald-600 font-medium transition-colors duration-200 ${isActive('/products') ? 'text-emerald-600' : ''
+        className={`text-gray-600 hover:text-emerald-600 font-medium transition-colors duration-200 ${isActive("/products") ? "text-emerald-600" : ""
           }`}
       >
         Products
       </Link>
       <Link
         to="/about"
-        className={`text-gray-600 hover:text-emerald-600 font-medium transition-colors duration-200 ${isActive('/about') ? 'text-emerald-600' : ''
+        className={`text-gray-600 hover:text-emerald-600 font-medium transition-colors duration-200 ${isActive("/about") ? "text-emerald-600" : ""
           }`}
       >
         About
       </Link>
       <Link
         to="/contact"
-        className={`text-gray-600 hover:text-emerald-600 font-medium transition-colors duration-200 ${isActive('/contact') ? 'text-emerald-600' : ''
+        className={`text-gray-600 hover:text-emerald-600 font-medium transition-colors duration-200 ${isActive("/contact") ? "text-emerald-600" : ""
           }`}
       >
         Contact
       </Link>
     </nav>
-  );
-};
+  )
+}
 
 // Mobile Navigation component
 const MobileNavigation = () => {
-  const location = useLocation();
+  const location = useLocation()
 
   const isActive = (path) => {
-    return location.pathname === path;
-  };
+    return location.pathname === path
+  }
 
   return (
     <nav className="px-6 py-4 space-y-4 bg-white border-t border-gray-200">
       <Link
         to="/"
-        className={`block text-gray-600 hover:text-emerald-600 font-medium transition-colors duration-200 ${isActive('/') ? 'text-emerald-600' : ''
+        className={`block text-gray-600 hover:text-emerald-600 font-medium transition-colors duration-200 ${isActive("/") ? "text-emerald-600" : ""
           }`}
       >
         Home
       </Link>
       <Link
         to="/products"
-        className={`block text-gray-600 hover:text-emerald-600 font-medium transition-colors duration-200 ${isActive('/products') ? 'text-emerald-600' : ''
+        className={`block text-gray-600 hover:text-emerald-600 font-medium transition-colors duration-200 ${isActive("/products") ? "text-emerald-600" : ""
           }`}
       >
         Products
       </Link>
       <Link
         to="/about"
-        className={`block text-gray-600 hover:text-emerald-600 font-medium transition-colors duration-200 ${isActive('/about') ? 'text-emerald-600' : ''
+        className={`block text-gray-600 hover:text-emerald-600 font-medium transition-colors duration-200 ${isActive("/about") ? "text-emerald-600" : ""
           }`}
       >
         About
       </Link>
       <Link
         to="/contact"
-        className={`block text-gray-600 hover:text-emerald-600 font-medium transition-colors duration-200 ${isActive('/contact') ? 'text-emerald-600' : ''
+        className={`block text-gray-600 hover:text-emerald-600 font-medium transition-colors duration-200 ${isActive("/contact") ? "text-emerald-600" : ""
           }`}
       >
         Contact
@@ -103,8 +99,8 @@ const MobileNavigation = () => {
         <span>Contact Us</span>
       </a>
     </nav>
-  );
-};
+  )
+}
 
 function App() {
   const [selectedProduct, setSelectedProduct] = useState(null)
@@ -119,8 +115,8 @@ function App() {
               {/* Logo Section */}
               <Link to="/" className="flex items-center space-x-4">
                 <div className="relative group">
-                  <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300">
-                    <img src={Logo} alt="Kamu Smart Logo" className="h-8 w-8" />
+                  <div className="flex items-center justify-center">
+                    <img src={Logo || "/placeholder.svg"} alt="Kamu Smart Logo" className="h-36 w-42" />
                   </div>
                 </div>
                 <div>
@@ -138,7 +134,12 @@ function App() {
               <div className="flex items-center space-x-4">
                 {/* Search Icon */}
                 <button className="w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-xl flex items-center justify-center transition-colors duration-200 group">
-                  <svg className="w-5 h-5 text-gray-600 group-hover:text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    className="w-5 h-5 text-gray-600 group-hover:text-emerald-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -150,7 +151,12 @@ function App() {
 
                 {/* Cart Icon */}
                 <button className="w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-xl flex items-center justify-center transition-colors duration-200 relative group">
-                  <svg className="w-5 h-5 text-gray-600 group-hover:text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    className="w-5 h-5 text-gray-600 group-hover:text-emerald-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -221,8 +227,8 @@ function App() {
               {/* Company Info */}
               <div className="space-y-4">
                 <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center">
-                    <img src={Logo} alt="Kamu Smart Logo" className="h-6 w-6" />
+                <div className="flex items-center justify-center">
+                    <img src={Logo || "/placeholder.svg"} alt="Kamu Smart Logo" className="h-36 w-42" />
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-gray-800">Kamu Smart</h3>
@@ -261,7 +267,10 @@ function App() {
                     </Link>
                   </li>
                   <li>
-                    <Link to="/products" className="text-gray-600 hover:text-emerald-600 transition-colors duration-200">
+                    <Link
+                      to="/products"
+                      className="text-gray-600 hover:text-emerald-600 transition-colors duration-200"
+                    >
                       Products
                     </Link>
                   </li>
@@ -294,14 +303,29 @@ function App() {
                 <ul className="space-y-3">
                   <li className="flex items-start space-x-3">
                     <svg className="w-6 h-6 text-gray-400 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                      />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                      />
                     </svg>
                     <span className="text-gray-600">Kigali, Rwanda</span>
                   </li>
                   <li className="flex items-start space-x-3">
                     <svg className="w-6 h-6 text-gray-400 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 2 0 002 2z"
+                      />
                     </svg>
                     <span className="text-gray-600">info@kamusmart.com</span>
                   </li>
@@ -334,9 +358,7 @@ function App() {
               {/* Newsletter */}
               <div>
                 <h3 className="text-lg font-semibold text-gray-800 mb-4">Newsletter</h3>
-                <p className="text-gray-600 mb-4">
-                  Subscribe to our newsletter for updates and special offers.
-                </p>
+                <p className="text-gray-600 mb-4">Subscribe to our newsletter for updates and special offers.</p>
                 <form className="space-y-3">
                   <input
                     type="email"
@@ -350,18 +372,14 @@ function App() {
                     Subscribe
                   </button>
                 </form>
-                <p className="text-sm text-gray-500 mt-3">
-                  We respect your privacy. Unsubscribe at any time.
-                </p>
+                <p className="text-sm text-gray-500 mt-3">We respect your privacy. Unsubscribe at any time.</p>
               </div>
             </div>
 
             {/* Bottom Bar */}
             <div className="border-t border-gray-200 mt-12 pt-8">
               <div className="flex flex-col md:flex-row justify-between items-center">
-                <p className="text-gray-600 text-sm">
-                  © {new Date().getFullYear()} Kamu Smart. All rights reserved.
-                </p>
+                <p className="text-gray-600 text-sm">© {new Date().getFullYear()} Kamu Smart. All rights reserved.</p>
                 <div className="flex space-x-6 mt-4 md:mt-0">
                   <a href="#" className="text-gray-600 hover:text-emerald-600 text-sm transition-colors duration-200">
                     Privacy Policy
@@ -379,7 +397,7 @@ function App() {
         </footer>
       </div>
     </Router>
-  );
+  )
 }
 
-export default App;
+export default App

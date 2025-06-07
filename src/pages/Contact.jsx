@@ -14,6 +14,7 @@ import {
     Star,
     ArrowRight,
 } from "lucide-react"
+import Logo from '../assets/LOGO.png';
 
 const Contact = () => {
     const [formData, setFormData] = useState({
@@ -117,6 +118,10 @@ const Contact = () => {
                         <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 mb-6 text-white/90">
                             <Sparkles className="w-4 h-4" />
                             <span className="text-sm font-medium">Get In Touch</span>
+                        </div>
+
+                        <div className="flex items-center justify-center mb-6">
+                            <img src={Logo || "/placeholder.svg"} alt="Kamu Smart Logo" className="h-36 w-42" />
                         </div>
 
                         <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
