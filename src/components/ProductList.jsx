@@ -213,12 +213,35 @@ const ProductList = ({ setSelectedProduct, limit }) => {
     return colors[badge] || "bg-gray-500 text-white"
   }
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-emerald-500"></div>
+  const ProductCardSkeleton = () => (
+    <div className="group relative bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden flex flex-col animate-pulse">
+      {/* Image Placeholder */}
+      <div className="aspect-square overflow-hidden bg-gray-200">
+        <div className="w-full h-full"></div>
       </div>
-    )
+
+      {/* Info Placeholder */}
+      <div className="p-6 flex-1 flex flex-col">
+        <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+        <div className="flex items-center gap-1 mb-2">
+          <div className="h-4 bg-gray-200 rounded w-1/4"></div>
+          <div className="h-4 bg-gray-200 rounded w-1/6 ml-1"></div>
+        </div>
+        <div className="h-6 bg-gray-200 rounded w-full mb-3"></div>
+        <div className="flex items-center gap-2 mb-4">
+          <div className="h-6 bg-gray-200 rounded w-1/3"></div>
+          <div className="h-4 bg-gray-200 rounded w-1/4"></div>
+        </div>
+        <div className="h-10 bg-gray-200 rounded-xl w-full"></div>
+      </div>
+    </div>
+  );
+
+  if (loading) {
+    const numberOfSkeletons = limit || 8; // Display 8 skeletons or the limit if provided
+    return Array.from({ length: numberOfSkeletons }).map((_, index) => (
+      <ProductCardSkeleton key={index} />
+    ));
   }
 
   // Home page: only show grid, no filters/search/pagination
