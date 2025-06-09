@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { X, Star, ShoppingCart, Heart, Minus, Plus, Shield, Truck, RefreshCw, Check, Clock } from "lucide-react"
 import PropTypes from 'prop-types'
+import Logo from "../assets/LOGO.png"
 
 export default function ProductDetail({ product, onClose }) {
   const [quantity, setQuantity] = useState(1)
@@ -34,7 +35,6 @@ export default function ProductDetail({ product, onClose }) {
   return (
     <div
       className="fixed inset-0 flex items-center justify-center p-4 z-50 animate-in fade-in duration-300"
-      onClick={onClose}
     >
       <div
         className="bg-white rounded-3xl shadow-2xl max-w-5xl w-full max-h-[95vh] overflow-hidden animate-in slide-in-from-bottom-4 duration-500"
@@ -49,14 +49,14 @@ export default function ProductDetail({ product, onClose }) {
               e.stopPropagation()
               onClose()
             }}
-            className="absolute top-4 right-4 w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-all duration-200 group shadow-sm"
+            className="absolute z-10 top-4 right-4 w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-all duration-200 group shadow-sm"
           >
             <X className="w-6 h-6 text-gray-600 group-hover:rotate-90 transition-transform duration-200" />
           </button>
 
           <div className="relative flex items-center space-x-4">
             <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center shadow-sm">
-              <span className="text-2xl font-bold text-gray-800">KS</span>
+              <img src={Logo} alt="Kamu Smart Logo" className="h-10 w-10" />
             </div>
             <div>
               <h2 className="text-2xl font-bold text-gray-800">Product Details</h2>

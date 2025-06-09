@@ -149,148 +149,6 @@ const generateProductData = () => {
   return products
 }
 
-// Product Detail Modal Component
-const ProductDetailModal = ({ product, isOpen, onClose }) => {
-  if (!isOpen || !product) return null
-
-  const handleWhatsAppContact = () => {
-    const message = `Hi! I'm interested in ${product.name}. Could you please provide more information about this product?`
-    const whatsappUrl = `https://wa.me/250783003049?text=${encodeURIComponent(message)}`
-    window.open(whatsappUrl, "_blank")
-  }
-
-  const handleCallContact = () => {
-    window.open("tel:+250783003049", "_self")
-  }
-
-  const handleEmailContact = () => {
-    const subject = `Inquiry about ${product.name}`
-    const body = `Hi,\n\nI'm interested in ${product.name}. Could you please provide more information?\n\nThank you!`
-    window.open(
-      `mailto:info@kamusmart.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`,
-      "_self",
-    )
-  }
-
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-        {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200">
-          <h2 className="text-2xl font-bold text-gray-800">Product Details</h2>
-          <button
-            onClick={onClose}
-            className="w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition-colors"
-          >
-            <X className="w-5 h-5 text-gray-600" />
-          </button>
-        </div>
-
-        {/* Content */}
-        <div className="p-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Product Image */}
-            <div className="space-y-4">
-              <div className="aspect-square rounded-2xl overflow-hidden bg-gray-50">
-                <img
-                  src={product.image || "/placeholder.svg"}
-                  alt={product.name}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-
-              {/* Badge */}
-              <div className="flex justify-center">
-                <span className="bg-emerald-500 text-white text-sm font-semibold px-4 py-2 rounded-full">
-                  {product.badge}
-                </span>
-              </div>
-            </div>
-
-            {/* Product Info */}
-            <div className="space-y-6">
-              <div>
-                <h1 className="text-3xl font-bold text-gray-800 mb-2">{product.name}</h1>
-                <p className="text-gray-600 mb-4">{product.description}</p>
-
-                {/* Rating */}
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="flex items-center gap-1">
-                    {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className={`w-5 h-5 ${i < Math.floor(product.rating) ? "text-yellow-400 fill-current" : "text-gray-300"}`}
-                      />
-                    ))}
-                  </div>
-                  <span className="text-lg font-semibold text-gray-700">{product.rating}</span>
-                  <span className="text-gray-500">({product.reviews} reviews)</span>
-                </div>
-
-                {/* Features */}
-                <div className="mb-6">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-3">Key Features:</h3>
-                  <ul className="space-y-2">
-                    {product.features.map((feature, index) => (
-                      <li key={index} className="flex items-center gap-2 text-gray-600">
-                        <span className="w-2 h-2 bg-emerald-500 rounded-full"></span>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Contact Buttons */}
-                <div className="space-y-4">
-                  <h3 className="text-lg font-semibold text-gray-800">Contact Us for This Product:</h3>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    {/* WhatsApp */}
-                    <button
-                      onClick={handleWhatsAppContact}
-                      className="flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-4 rounded-xl transition-colors"
-                    >
-                      <MessageCircle className="w-5 h-5" />
-                      WhatsApp
-                    </button>
-
-                    {/* Call */}
-                    <button
-                      onClick={handleCallContact}
-                      className="flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-4 rounded-xl transition-colors"
-                    >
-                      <Phone className="w-5 h-5" />
-                      Call
-                    </button>
-
-                    {/* Email */}
-                    <button
-                      onClick={handleEmailContact}
-                      className="flex items-center justify-center gap-2 bg-gray-500 hover:bg-gray-600 text-white font-semibold py-3 px-4 rounded-xl transition-colors"
-                    >
-                      <Mail className="w-5 h-5" />
-                      Email
-                    </button>
-                  </div>
-
-                  {/* Add to Cart */}
-                  <button
-                    onClick={handleWhatsAppContact}
-                    className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-4 px-6 rounded-xl transition-colors flex items-center justify-center gap-2 text-lg"
-                  >
-                    <ShoppingCart className="w-6 h-6" />
-                    Order via WhatsApp
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
-
 const ProductList = ({ setSelectedProduct, limit }) => {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
@@ -299,8 +157,6 @@ const ProductList = ({ setSelectedProduct, limit }) => {
   const [filter, setFilter] = useState("all")
   const [sortBy, setSortBy] = useState("default")
   const [currentPage, setCurrentPage] = useState(1)
-  const [selectedProduct, setSelectedProductLocal] = useState(null)
-  const [isModalOpen, setIsModalOpen] = useState(false)
   const productsPerPage = 12
 
   useEffect(() => {
@@ -312,14 +168,7 @@ const ProductList = ({ setSelectedProduct, limit }) => {
   }, [])
 
   const handleProductClick = (product) => {
-    setSelectedProductLocal(product)
-    setIsModalOpen(true)
     if (setSelectedProduct) setSelectedProduct(product)
-  }
-
-  const closeModal = () => {
-    setIsModalOpen(false)
-    setSelectedProductLocal(null)
   }
 
   const getFilteredProducts = () => {
@@ -422,7 +271,6 @@ const ProductList = ({ setSelectedProduct, limit }) => {
             <div
               key={product.id}
               className="group relative bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden border border-gray-100 cursor-pointer"
-              onClick={() => handleProductClick(product)}
             >
               {/* Badge */}
               <div className="absolute top-4 left-4 z-10">
@@ -461,13 +309,6 @@ const ProductList = ({ setSelectedProduct, limit }) => {
                   {product.name}
                 </h3>
 
-                <div className="flex items-baseline gap-2 mb-4">
-                  <span className="text-xl font-bold text-gray-800">Rwf{product.price.toLocaleString()}</span>
-                  {product.originalPrice && (
-                    <span className="text-sm text-gray-500 line-through">Rwf{product.originalPrice.toLocaleString()}</span>
-                  )}
-                </div>
-
                 <button
                   className="block w-full bg-emerald-500 text-white text-center py-3 rounded-xl font-semibold hover:bg-emerald-600 transition-colors duration-200"
                   onClick={(e) => {
@@ -481,9 +322,6 @@ const ProductList = ({ setSelectedProduct, limit }) => {
             </div>
           ))}
         </div>
-
-        {/* Product Detail Modal */}
-        <ProductDetailModal product={selectedProduct} isOpen={isModalOpen} onClose={closeModal} />
       </div>
     )
   }
@@ -575,9 +413,7 @@ const ProductList = ({ setSelectedProduct, limit }) => {
           {currentProducts.map((product) => (
             <div
               key={product.id}
-              onClick={() => handleProductClick(product)}
-              className={`group relative bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden border border-gray-100 cursor-pointer ${viewMode === "list" ? "flex" : ""
-                }`}
+              className="group relative bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden border border-gray-100 cursor-pointer"
             >
               {/* Badge */}
               <div className={`absolute top-4 left-4 z-10`}>
@@ -619,15 +455,6 @@ const ProductList = ({ setSelectedProduct, limit }) => {
                 <h3 className="font-semibold text-gray-800 mb-3 group-hover:text-emerald-600 transition-colors line-clamp-2">
                   {product.name}
                 </h3>
-
-                <div className="flex items-baseline gap-2 mb-4">
-                  <span className="text-xl font-bold text-gray-800">Rwf{product.price.toLocaleString()}</span>
-                  {product.originalPrice && (
-                    <span className="text-sm text-gray-500 line-through">
-                      Rwf{product.originalPrice.toLocaleString()}
-                    </span>
-                  )}
-                </div>
 
                 <button
                   onClick={(e) => {
@@ -704,9 +531,6 @@ const ProductList = ({ setSelectedProduct, limit }) => {
           </div>
         )}
       </div>
-
-      {/* Product Detail Modal */}
-      <ProductDetailModal product={selectedProduct} isOpen={isModalOpen} onClose={closeModal} />
     </div>
   )
 }
