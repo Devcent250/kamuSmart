@@ -51,7 +51,7 @@ const Navigation = () => {
 }
 
 // Mobile Navigation component
-const MobileNavigation = () => {
+const MobileNavigation = ({ onCloseMenu }) => {
   const location = useLocation()
 
   const isActive = (path) => {
@@ -62,6 +62,7 @@ const MobileNavigation = () => {
     <nav className="px-6 py-4 space-y-4 bg-white border-t border-gray-200">
       <Link
         to="/"
+        onClick={onCloseMenu}
         className={`block text-gray-600 hover:text-emerald-600 font-medium transition-colors duration-200 ${isActive("/") ? "text-emerald-600" : ""
           }`}
       >
@@ -69,6 +70,7 @@ const MobileNavigation = () => {
       </Link>
       <Link
         to="/products"
+        onClick={onCloseMenu}
         className={`block text-gray-600 hover:text-emerald-600 font-medium transition-colors duration-200 ${isActive("/products") ? "text-emerald-600" : ""
           }`}
       >
@@ -76,6 +78,7 @@ const MobileNavigation = () => {
       </Link>
       <Link
         to="/about"
+        onClick={onCloseMenu}
         className={`block text-gray-600 hover:text-emerald-600 font-medium transition-colors duration-200 ${isActive("/about") ? "text-emerald-600" : ""
           }`}
       >
@@ -83,6 +86,7 @@ const MobileNavigation = () => {
       </Link>
       <Link
         to="/contact"
+        onClick={onCloseMenu}
         className={`block text-gray-600 hover:text-emerald-600 font-medium transition-colors duration-200 ${isActive("/contact") ? "text-emerald-600" : ""
           }`}
       >
@@ -105,6 +109,11 @@ const MobileNavigation = () => {
 
 function App() {
   const [selectedProduct, setSelectedProduct] = useState(null)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen)
+  }
 
   return (
     <Router>
@@ -112,12 +121,12 @@ function App() {
         {/* Modern Clean Header */}
         <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
           <div className="container mx-auto px-6">
-            <div className="flex items-center justify-between h-20">
+            <div className="flex items-center justify-between h-20 space-x-2">
               {/* Logo Section */}
-              <Link to="/" className="flex items-center space-x-4">
+              <Link to="/" className="flex items-center space-x-4 flex-shrink-0">
                 <div className="relative group">
                   <div className="flex items-center justify-center">
-                    <img src={Logo || "/placeholder.svg"} alt="Kamu Smart Logo" className="h-36 w-42" />
+                    <img src={Logo || "/placeholder.svg"} alt="Kamu Smart Logo" className="h-full w-auto max-h-16 sm:max-h-20" />
                   </div>
                 </div>
                 <div>
@@ -132,44 +141,7 @@ function App() {
               <Navigation />
 
               {/* Right Section */}
-              <div className="flex items-center space-x-4">
-                {/* Search Icon */}
-                <button className="w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-xl flex items-center justify-center transition-colors duration-200 group">
-                  <svg
-                    className="w-5 h-5 text-gray-600 group-hover:text-emerald-600"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                    />
-                  </svg>
-                </button>
-
-                {/* Cart Icon */}
-                <button className="w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-xl flex items-center justify-center transition-colors duration-200 relative group">
-                  <svg
-                    className="w-5 h-5 text-gray-600 group-hover:text-emerald-600"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 11-4 0v-6m4 0V9a2 2 0 10-4 0v4.01"
-                    />
-                  </svg>
-                  <span className="absolute -top-2 -right-2 w-5 h-5 bg-emerald-500 text-white text-xs rounded-full flex items-center justify-center font-bold">
-                    3
-                  </span>
-                </button>
-
+              <div className="flex items-center space-x-4 md:space-x-6">
                 {/* WhatsApp Contact */}
                 <a
                   href="https://wa.me/250783003049"
@@ -183,22 +155,18 @@ function App() {
                   <span>Contact Us</span>
                 </a>
 
-                {/* User Profile */}
-                <button className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center transition-all duration-200 hover:shadow-lg">
-                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {/* Mobile Menu Toggle */}
+                <button
+                  className="md:hidden w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-xl flex items-center justify-center transition-colors duration-200"
+                  onClick={toggleMobileMenu}
+                >
+                  <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={2}
-                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                      d="M4 6h16M4 12h16M4 18h16"
                     />
-                  </svg>
-                </button>
-
-                {/* Mobile Menu Button */}
-                <button className="md:hidden w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-xl flex items-center justify-center transition-colors duration-200">
-                  <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                   </svg>
                 </button>
               </div>
@@ -206,9 +174,7 @@ function App() {
           </div>
 
           {/* Mobile Navigation Menu */}
-          <div className="md:hidden">
-            <MobileNavigation />
-          </div>
+          {isMobileMenuOpen && <MobileNavigation onCloseMenu={toggleMobileMenu} />}
         </header>
 
         {/* Main Content */}

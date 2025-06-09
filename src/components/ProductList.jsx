@@ -120,8 +120,15 @@ const generateProductData = () => {
     const rating = (Math.random() * 2 + 3).toFixed(1)
     const reviews = Math.floor(Math.random() * 200)
     const inStock = Math.random() > 0.1
-    const price = (Math.random() * 500 + 50).toFixed(2)
-    const originalPrice = (Number.parseFloat(price) * 1.3).toFixed(2)
+    const price = (Math.random() * 100 + 50).toFixed(2)
+    const originalPrice = (Number(price) + Math.random() * 50).toFixed(2)
+    const description = `This is a high-quality ${category.toLowerCase()} product designed to enhance your lifestyle. It features premium materials and smart technology for exceptional performance.`
+    const features = [
+      `Durable ${category} construction`,
+      `Enhanced ${category} performance`,
+      `Easy to use with smart features`,
+      `Eco-friendly materials`,
+    ]
 
     products.push({
       id: i + 1,
@@ -132,14 +139,10 @@ const generateProductData = () => {
       rating: rating,
       reviews: reviews,
       inStock: inStock,
-      description: `High-quality ${category.toLowerCase()} product with advanced features and premium build quality. Perfect for modern lifestyle and daily use.`,
-      features: [
-        "Premium Quality Materials",
-        "Advanced Technology",
-        "Durable Construction",
-        "User-Friendly Design",
-        "Warranty Included",
-      ],
+      price: Number.parseFloat(price),
+      originalPrice: Number.parseFloat(originalPrice),
+      description: description,
+      features: features,
     })
   }
 
@@ -401,7 +404,7 @@ const ProductList = ({ setSelectedProduct, limit }) => {
     const numberOfSkeletons = limit || 8
     return (
       <div className="container mx-auto max-w-7xl px-4 py-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-6">
           {Array.from({ length: numberOfSkeletons }).map((_, index) => (
             <ProductCardSkeleton key={index} />
           ))}
@@ -414,7 +417,7 @@ const ProductList = ({ setSelectedProduct, limit }) => {
   if (limit) {
     return (
       <div className="container mx-auto max-w-7xl px-4 py-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-8">
           {currentProducts.map((product) => (
             <div
               key={product.id}
@@ -434,11 +437,11 @@ const ProductList = ({ setSelectedProduct, limit }) => {
               </button>
 
               {/* Product Image */}
-              <div className="aspect-square overflow-hidden bg-gray-50">
+              <div className="h-64 w-full overflow-hidden bg-gray-50">
                 <img
                   src={product.image || "/placeholder.svg"}
                   alt={product.name}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  className="block w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
               </div>
 
@@ -457,6 +460,13 @@ const ProductList = ({ setSelectedProduct, limit }) => {
                 <h3 className="font-semibold text-gray-800 mb-3 group-hover:text-emerald-600 transition-colors line-clamp-2">
                   {product.name}
                 </h3>
+
+                <div className="flex items-baseline gap-2 mb-4">
+                  <span className="text-xl font-bold text-gray-800">Rwf{product.price.toLocaleString()}</span>
+                  {product.originalPrice && (
+                    <span className="text-sm text-gray-500 line-through">Rwf{product.originalPrice.toLocaleString()}</span>
+                  )}
+                </div>
 
                 <button
                   className="block w-full bg-emerald-500 text-white text-center py-3 rounded-xl font-semibold hover:bg-emerald-600 transition-colors duration-200"
@@ -558,8 +568,8 @@ const ProductList = ({ setSelectedProduct, limit }) => {
         {/* Product Grid/List */}
         <div
           className={`grid gap-6 ${viewMode === "grid"
-              ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
-              : "grid-cols-1"
+            ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4"
+            : "grid-cols-1"
             }`}
         >
           {currentProducts.map((product) => (
@@ -585,12 +595,12 @@ const ProductList = ({ setSelectedProduct, limit }) => {
 
               {/* Product Image */}
               <div
-                className={`aspect-square overflow-hidden bg-gray-50 ${viewMode === "list" ? "w-1/3 h-48" : "h-64"}`}
+                className={`h-64 w-full overflow-hidden bg-gray-50 ${viewMode === "list" ? "w-1/3 h-48" : "h-64"}`}
               >
                 <img
                   src={product.image || "/placeholder.svg"}
                   alt={product.name}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  className="block w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
               </div>
 
@@ -609,6 +619,15 @@ const ProductList = ({ setSelectedProduct, limit }) => {
                 <h3 className="font-semibold text-gray-800 mb-3 group-hover:text-emerald-600 transition-colors line-clamp-2">
                   {product.name}
                 </h3>
+
+                <div className="flex items-baseline gap-2 mb-4">
+                  <span className="text-xl font-bold text-gray-800">Rwf{product.price.toLocaleString()}</span>
+                  {product.originalPrice && (
+                    <span className="text-sm text-gray-500 line-through">
+                      Rwf{product.originalPrice.toLocaleString()}
+                    </span>
+                  )}
+                </div>
 
                 <button
                   onClick={(e) => {
@@ -632,8 +651,8 @@ const ProductList = ({ setSelectedProduct, limit }) => {
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
               className={`px-4 py-2 rounded-lg border ${currentPage === 1
-                  ? "border-gray-200 text-gray-400 cursor-not-allowed"
-                  : "border-gray-300 text-gray-700 hover:bg-gray-50"
+                ? "border-gray-200 text-gray-400 cursor-not-allowed"
+                : "border-gray-300 text-gray-700 hover:bg-gray-50"
                 }`}
             >
               Previous
@@ -654,8 +673,8 @@ const ProductList = ({ setSelectedProduct, limit }) => {
                       key={pageNumber}
                       onClick={() => handlePageChange(pageNumber)}
                       className={`w-10 h-10 rounded-lg border ${currentPage === pageNumber
-                          ? "bg-emerald-500 text-white border-emerald-500"
-                          : "border-gray-300 text-gray-700 hover:bg-gray-50"
+                        ? "bg-emerald-500 text-white border-emerald-500"
+                        : "border-gray-300 text-gray-700 hover:bg-gray-50"
                         }`}
                     >
                       {pageNumber}
@@ -676,8 +695,8 @@ const ProductList = ({ setSelectedProduct, limit }) => {
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
               className={`px-4 py-2 rounded-lg border ${currentPage === totalPages
-                  ? "border-gray-200 text-gray-400 cursor-not-allowed"
-                  : "border-gray-300 text-gray-700 hover:bg-gray-50"
+                ? "border-gray-200 text-gray-400 cursor-not-allowed"
+                : "border-gray-300 text-gray-700 hover:bg-gray-50"
                 }`}
             >
               Next
