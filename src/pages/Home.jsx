@@ -9,14 +9,22 @@ const Home = ({ setSelectedProduct }) => {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-emerald-50">
       {/* Hero Section */}
       <div className="relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-600">
-          <div
-            className="absolute inset-0 opacity-20"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fillRule='evenodd'%3E%3Cg fill='%23ffffff' fillOpacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-            }}
-          ></div>
+        {/* Background Image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: 'url("/images/home-image.jpeg")',
+          }}
+        >
+          {/* Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-emerald-600/70 via-emerald-500/70 to-teal-600/70">
+            <div
+              className="absolute inset-0 opacity-10"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fillRule='evenodd'%3E%3Cg fill='%23ffffff' fillOpacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+              }}
+            ></div>
+          </div>
         </div>
 
         <div className="relative container mx-auto px-6 py-24 lg:py-32">
@@ -26,10 +34,10 @@ const Home = ({ setSelectedProduct }) => {
               <span className="text-sm font-medium">Premium Quality Products</span>
             </div>
 
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white leading-tight">
+            <h1 className="text-5xl md:text-5xl font-bold mb-6 text-white leading-tight">
               Welcome to{" "}
               <span className="bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">
-                Kamu Smart
+                Kamu Smart LTD
               </span>
             </h1>
 
