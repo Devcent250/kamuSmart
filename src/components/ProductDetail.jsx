@@ -72,54 +72,31 @@ export default function ProductDetail({ product, onClose }) {
         <div className="p-8 overflow-y-auto max-h-[calc(95vh-120px)]">
           <div className="grid lg:grid-cols-2 gap-10">
             {/* Enhanced Product Image Section */}
-            <div className="space-y-6">
-              <div className="relative rounded-3xl overflow-hidden group shadow-lg border border-gray-100">
-                <img
-                  src={product.image || "https://placehold.co/600x400/e2e8f0/64748b?text=Product+Image"}
-                  alt={product.name}
-                  className="w-full h-96 object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-
-                {/* Status Badge */}
-                <div className="absolute top-4 left-4">
-                  {product.inStock ? (
-                    <span className="flex items-center space-x-2 bg-emerald-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
-                      <Check className="w-4 h-4" />
-                      <span>In Stock</span>
-                    </span>
-                  ) : (
-                    <span className="flex items-center space-x-2 bg-red-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
-                      <Clock className="w-4 h-4" />
-                      <span>Out of Stock</span>
-                    </span>
-                  )}
-                </div>
-
-                {/* Category Badge */}
-                <div className="absolute top-4 right-4">
-                  <span className="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm font-medium shadow-lg">
-                    {product.category}
+            <div className="relative h-full w-full rounded-3xl overflow-hidden group shadow-lg border border-gray-100 flex items-stretch">
+              <img
+                src={product.image || "https://placehold.co/600x400/e2e8f0/64748b?text=Product+Image"}
+                alt={product.name}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              {/* Status Badge */}
+              <div className="absolute top-4 left-4">
+                {product.inStock ? (
+                  <span className="flex items-center space-x-2 bg-emerald-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                    <Check className="w-4 h-4" />
+                    <span>In Stock</span>
                   </span>
-                </div>
+                ) : (
+                  <span className="flex items-center space-x-2 bg-red-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                    <Clock className="w-4 h-4" />
+                    <span>Out of Stock</span>
+                  </span>
+                )}
               </div>
-
-              {/* Enhanced Features Grid */}
-              <div className="grid grid-cols-3 gap-4">
-                <div className="text-center p-6 rounded-2xl border border-gray-100 hover:shadow-xl transition-shadow duration-200 bg-gray-50 shadow-md">
-                  <Shield className="w-10 h-10 text-emerald-600 mx-auto mb-3" />
-                  <p className="text-sm font-semibold text-gray-800">Quality</p>
-                  <p className="text-xs text-gray-600 mt-1">Guaranteed</p>
-                </div>
-                <div className="text-center p-6 rounded-2xl border border-gray-100 hover:shadow-xl transition-shadow duration-200 bg-gray-50 shadow-md">
-                  <Truck className="w-10 h-10 text-blue-600 mx-auto mb-3" />
-                  <p className="text-sm font-semibold text-gray-800">Free Ship</p>
-                  <p className="text-xs text-gray-600 mt-1">Over $50</p>
-                </div>
-                <div className="text-center p-6 rounded-2xl border border-gray-100 hover:shadow-xl transition-shadow duration-200 bg-gray-50 shadow-md">
-                  <RefreshCw className="w-10 h-10 text-purple-600 mx-auto mb-3" />
-                  <p className="text-sm font-semibold text-gray-800">Returns</p>
-                  <p className="text-xs text-gray-600 mt-1">30 Days</p>
-                </div>
+              {/* Category Badge */}
+              <div className="absolute top-4 right-4">
+                <span className="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm font-medium shadow-lg">
+                  {product.category}
+                </span>
               </div>
             </div>
 
@@ -148,6 +125,33 @@ export default function ProductDetail({ product, onClose }) {
 
                 <h1 className="text-4xl font-bold text-gray-800 mb-3 leading-tight">{product.name}</h1>
                 <p className="text-gray-600 text-lg leading-relaxed">{product.description}</p>
+              </div>
+
+              {/* Order/Contact Buttons */}
+              <div className="flex flex-col sm:flex-row gap-3 mt-4">
+                <a
+                  href={`https://wa.me/250783003049?text=I%20want%20to%20order%20${encodeURIComponent(product.name)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-3 rounded-xl shadow-md transition-colors duration-200 text-base"
+                >
+                  <i className="fab fa-whatsapp text-lg"></i>
+                  Order via WhatsApp
+                </a>
+                <a
+                  href={`mailto:info@kamusmart.com?subject=Order%20Inquiry%20for%20${encodeURIComponent(product.name)}`}
+                  className="flex-1 flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-3 rounded-xl shadow-md transition-colors duration-200 text-base"
+                >
+                  <i className="fas fa-envelope text-lg"></i>
+                  Contact via Email
+                </a>
+                <a
+                  href="tel:+250783003049"
+                  className="flex-1 flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-2 px-3 rounded-xl shadow-md transition-colors duration-200 text-base"
+                >
+                  <i className="fas fa-phone text-lg"></i>
+                  Call
+                </a>
               </div>
 
               {/* Enhanced Tabs Section */}
